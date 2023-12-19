@@ -7,17 +7,12 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
+	"github.com/sadagatasgarov/toll-calc/types"
 )
 
 const wsEndPoint = "ws://localhost:30000/ws"
 
 var sendInterval = time.Second
-
-type OBUData struct {
-	OBUID int     `json:"obuID"`
-	Lat   float64 `json:"lat"`
-	Long  float64 `json:"long"`
-}
 
 // func sebdOBUData(conn *websocket.Conn, data OBUData) error {
 // 	return conn.WriteJSON(data)
@@ -42,7 +37,7 @@ func main() {
 	for {
 		for i := 0; i < len(obuIDS); i++ {
 			lat, long := genLatLong()
-			data := OBUData{
+			data := types.OBUData{
 				OBUID: obuIDS[i],
 				Lat:   lat,
 				Long:  long,
