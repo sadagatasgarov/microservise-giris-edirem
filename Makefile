@@ -8,4 +8,10 @@ receiver:
 	@./bin/receiver
 
 
+git:
+	@git add .
+	@git commit -m"Duzelis"
+	@git push -u origin main
+
+	
 .PHONY:obu
