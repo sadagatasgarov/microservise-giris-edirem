@@ -11,7 +11,7 @@ receiver:
 git:
 	@git add .
 	@git commit -m"Kafkani ayarladim ve islettim"
-	@git push -u origin main
+	@git push -u origin my-solition
 
 	
 	
