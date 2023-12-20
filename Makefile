@@ -10,7 +10,7 @@ receiver:
 
 git:
 	@git add .
-	@git commit -m"Duzelis"
+	@git commit -m"Websocket tamam"
 	@git push -u origin main
 
 	
