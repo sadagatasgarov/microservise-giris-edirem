@@ -1,4 +1,4 @@
-.version: "3"
+version: "3"
 networks:
   myNetwork:
 
@@ -30,3 +30,6 @@ services:
       - myNetwork
     depends_on:
       - zookeeper
+
+
+
