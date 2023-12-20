@@ -1,5 +1,5 @@
-git config --global user.name "Sadagat Asgarov"
-git config --global user.email "sadagat.asgarov@gmail.com"
+git config --global user.name ""
+git config --global user.email ""
 Create a new repository
 git clone git@gitlab.com:sadagatasgarov/microservise-giris-edirem.git
 cd microservise-giris-edirem
