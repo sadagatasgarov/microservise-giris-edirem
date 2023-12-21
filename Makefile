@@ -4,13 +4,13 @@ obu:
 
 
 receiver:
-	@go build -o ./bin/receiver ./data_receiver/main.go
+	@go build -o ./bin/receiver ./data_receiver
 	@./bin/receiver
 
 
 git:
 	@git add .
-	@git commit -m"Kafaknin produs terefini funksiyalara ayirmaq"
+	@git commit -m"bundan sonra loglama baslayiriq"
 	@git push -u origin main
 
 	
