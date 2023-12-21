@@ -1,48 +1,24 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"github.com/gorilla/websocket"
 	"github.com/sadagatasgarov/toll-calc/types"
 )
 
+var kafkaTopic string = "TezeTopic"
+
 func main() {
 
-	c, err := kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost",
-		"group.id":          "myGroup",
-		"auto.offset.reset": "earliest",
-	})
-
+	recv, err := NewDataReceiver()
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
-
-	c.SubscribeTopics([]string{"myTopic", "^aRegex.*[Tt]opic"}, nil)
-
-	// A signal handler or similar could be used to set this to false to break the loop.
-	run := true
-
-	for run {
-		msg, err := c.ReadMessage(time.Second)
-		if err == nil {
-			fmt.Printf("Message on %s: %s\n", msg.TopicPartition, string(msg.Value))
-		} else if !err.(kafka.Error).IsTimeout() {
-			// The client will automatically try to recover from all errors.
-			// Timeout is not considered an error because it is raised by
-			// ReadMessage in absence of messages.
-			fmt.Printf("Consumer error: %v (%v)\n", err, msg)
-		}
-	}
-
-	c.Close()
-
-	recv := NewDataReceiver()
 	http.HandleFunc("/ws", recv.handleWs)
 	http.ListenAndServe(":30000", nil)
 }
@@ -50,12 +26,47 @@ func main() {
 type DataReceiver struct {
 	msgch chan types.OBUData
 	conn  *websocket.Conn
+	prod  *kafka.Producer
 }
 
-func NewDataReceiver() *DataReceiver {
+func NewDataReceiver() (*DataReceiver, error) {
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "localhost"})
+	if err != nil {
+		return nil, err
+	}
 	return &DataReceiver{
 		msgch: make(chan types.OBUData, 128),
+		prod:  p,
+	}, nil
+}
+
+func (dr *DataReceiver) produceData(data types.OBUData) error {
+	b, err := json.Marshal(data)
+	if err != nil {
+		return err
 	}
+	// Delivery report handler for produced messages
+	go func() {
+		for e := range dr.prod.Events() {
+			switch ev := e.(type) {
+			case *kafka.Message:
+				if ev.TopicPartition.Error != nil {
+					fmt.Printf("Delivery failed: %v\n", ev.TopicPartition)
+				} else {
+					fmt.Printf("Delivered message to %v\n", ev.TopicPartition)
+				}
+			}
+		}
+	}()
+	err = dr.prod.Produce(&kafka.Message{
+		TopicPartition: kafka.TopicPartition{
+			Topic:     &kafkaTopic,
+			Partition: kafka.PartitionAny,
+		},
+		Value: b,
+	}, nil)
+
+	return err
 }
 
 func (dr *DataReceiver) handleWs(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +90,12 @@ func (dr *DataReceiver) wsReceiveLoop() {
 			log.Println("Read error:", err)
 			continue
 		}
-		fmt.Printf("Received OBU data from [%d]--> Lat:%2.f, Long:%2.f \n", data.OBUID, data.Lat, data.Long)
+
+		if err := dr.produceData(data); err != nil {
+			fmt.Println("Kafka rod eroru oldu", err)
+		}
+
+		//fmt.Printf("Received OBU data from [%d]--> Lat:%2.f, Long:%2.f \n", data.OBUID, data.Lat, data.Long)
 		//dr.msgch <- data
 	}
 }

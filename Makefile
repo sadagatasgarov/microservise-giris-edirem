@@ -10,7 +10,7 @@ receiver:
 
 git:
 	@git add .
-	@git commit -m"qaytardim evvelki veziyyetine muellim ile birlikde tezeden duzeldecem"
+	@git commit -m"datani websoketden alib produce edirik"
 	@git push -u origin main
 
 	
