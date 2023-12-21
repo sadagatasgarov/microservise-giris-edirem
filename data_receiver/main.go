@@ -14,7 +14,6 @@ import (
 var kafkaTopic string = "TezeTopic"
 
 func main() {
-
 	recv, err := NewDataReceiver()
 	if err != nil {
 		log.Fatal(err)
@@ -45,7 +44,7 @@ func (dr *DataReceiver) produceData(data types.OBUData) error {
 	if err != nil {
 		return err
 	}
-	// Delivery report handler for produced messages
+	// Start another go routine to check if we have delivered the data
 	go func() {
 		for e := range dr.prod.Events() {
 			switch ev := e.(type) {
@@ -58,6 +57,7 @@ func (dr *DataReceiver) produceData(data types.OBUData) error {
 			}
 		}
 	}()
+
 	err = dr.prod.Produce(&kafka.Message{
 		TopicPartition: kafka.TopicPartition{
 			Topic:     &kafkaTopic,
@@ -65,7 +65,6 @@ func (dr *DataReceiver) produceData(data types.OBUData) error {
 		},
 		Value: b,
 	}, nil)
-
 	return err
 }
 
