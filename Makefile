@@ -10,7 +10,7 @@ receiver:
 
 git:
 	@git add .
-	@git commit -m"datani websoketden alib produce edirik"
+	@git commit -m"Kafaknin produs terefini funksiyalara ayirmaq"
 	@git push -u origin main
 
 	
