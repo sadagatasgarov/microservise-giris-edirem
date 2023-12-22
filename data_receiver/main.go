@@ -64,7 +64,7 @@ func (dr *DataReceiver) wsReceiveLoop() {
 			continue
 		}
 
-		if err := dr.prod.ProduceData(data); err != nil {
+		if err := dr.produceData(data); err != nil {
 			fmt.Println("Kafka rod eroru oldu", err)
 		}
 
