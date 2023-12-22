@@ -9,8 +9,6 @@ import (
 	"github.com/sadagatasgarov/toll-calc/types"
 )
 
-var kafkaTopic string = "TezeTopic"
-
 func main() {
 	recv, err := NewDataReceiver()
 	if err != nil {
@@ -33,7 +31,7 @@ func NewDataReceiver() (*DataReceiver, error) {
 		err error
 	)
 
-	p, err = NewKafkaProducer()
+	p, err = NewKafkaProducer("topic")
 	p = NewLogMiddleware(p)
 	if err != nil {
 		return nil, err
