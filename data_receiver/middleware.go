@@ -1,6 +1,11 @@
 package main
 
-import "github.com/sadagatasgarov/toll-calc/types"
+import (
+	"time"
+
+	"github.com/sadagatasgarov/toll-calc/types"
+	"github.com/sirupsen/logrus"
+)
 
 type LogMiddleware struct {
 	next DataProducer
@@ -13,6 +18,14 @@ func NewLogMiddleware(next DataProducer) *LogMiddleware {
 }
 
 func (l *LogMiddleware) ProduceData(data types.OBUData) error {
-	return nil
-}
+	defer func(start time.Time) {
+		logrus.WithFields(logrus.Fields{
+			"ubuID": data.OBUID,
+			"lat":   data.Lat,
+			"long":  data.Long,
+			"took":  time.Since(start),
+		}).Info("producing to kafka")
+	}(time.Now())
 
+	return l.next.ProduceData(data)
+}
