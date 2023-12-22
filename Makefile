@@ -7,10 +7,14 @@ receiver:
 	@go build -o ./bin/receiver ./data_receiver
 	@./bin/receiver
 
+calculator:
+	@go build -o ./bin/calculator ./distance_calculator
+	@./bin/calculator
+
 
 git:
 	@git add .
-	@git commit -m"Logrus elave dildi 1.714µs "
+	@git commit -m"consumere giris etdirik"
 	@git push -u origin main
 
 	

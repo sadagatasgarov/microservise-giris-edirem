@@ -29,6 +29,7 @@ func NewKafkaProducer(topic string) (DataProducer, error) {
 					// 	fmt.Printf("Delivery failed: %v\n", ev.TopicPartition)
 					// } else {
 					// 	fmt.Printf("Delivered message to %v\n", ev.TopicPartition)
+			
 				}
 			}
 		}

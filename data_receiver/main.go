@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 	http.HandleFunc("/ws", recv.handleWs)
-	http.ListenAndServe(":30000", nil)
+	//http.ListenAndServe(":30000", nil)
 }
 
 type DataReceiver struct {
