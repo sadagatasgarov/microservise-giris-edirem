@@ -1,5 +1,7 @@
 package main
 
+import "github.com/sadagatasgarov/toll-calc/types"
+
 type LogMiddleware struct {
 	next DataProducer
 }
@@ -10,4 +12,7 @@ func NewLogMiddleware(next DataProducer) *LogMiddleware {
 	}
 }
 
+func (l *LogMiddleware) ProduceData(data types.OBUData) error {
+	return nil
+}
 

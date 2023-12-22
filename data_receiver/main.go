@@ -28,7 +28,13 @@ type DataReceiver struct {
 }
 
 func NewDataReceiver() (*DataReceiver, error) {
-	p, err := NewKafkaProducer()
+	var (
+		p DataProducer
+		err error
+	)
+
+	p, err = NewKafkaProducer()
+	p = NewLogMiddleware(p)
 	if err != nil {
 		return nil, err
 	}

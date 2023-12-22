@@ -10,7 +10,7 @@ receiver:
 
 git:
 	@git add .
-	@git commit -m"bundan sonra loglama baslayiriq"
+	@git commit -m"DataProducer is also kafkaproducer ne ucun?"
 	@git push -u origin main
 
 	
