@@ -10,7 +10,7 @@ receiver:
 
 git:
 	@git add .
-	@git commit -m"DataProducer is also kafkaproducer ne ucun?"
+	@git commit -m"Logrus elave dildi 1.714µs "
 	@git push -u origin main
 
 	
