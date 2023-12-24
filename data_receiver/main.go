@@ -9,13 +9,15 @@ import (
 	"github.com/sadagatasgarov/toll-calc/types"
 )
 
+const kafkaTopic = "topic"
+
 func main() {
 	recv, err := NewDataReceiver()
 	if err != nil {
 		log.Fatal(err)
 	}
 	http.HandleFunc("/ws", recv.handleWs)
-	//http.ListenAndServe(":30000", nil)
+	http.ListenAndServe(":30000", nil)
 }
 
 type DataReceiver struct {
@@ -31,7 +33,7 @@ func NewDataReceiver() (*DataReceiver, error) {
 		err error
 	)
 
-	p, err = NewKafkaProducer("topic")
+	p, err = NewKafkaProducer(kafkaTopic)
 	p = NewLogMiddleware(p)
 	if err != nil {
 		return nil, err
