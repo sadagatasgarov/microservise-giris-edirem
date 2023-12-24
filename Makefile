@@ -14,7 +14,7 @@ calculator:
 
 git:
 	@git add .
-	@git commit -m"consumere giris etdirik->duzelisler edilir"
+	@git commit -m"consumere giris etdirik->duzelisler etdiyimiz consumer isledi"
 	@git push -u origin main
 
 	

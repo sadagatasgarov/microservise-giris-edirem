@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 	"github.com/sirupsen/logrus"
@@ -19,29 +18,38 @@ func NewKafkaConsumer(topic string) (*KafkaConsumer, error) {
 		"group.id":          "myGroup",
 		"auto.offset.reset": "earliest",
 	})
-
 	if err != nil {
 		return nil, err
 	}
 	c.SubscribeTopics([]string{topic}, nil)
-	//c.Close()
+
 	return &KafkaConsumer{
 		consumer: c,
 	}, nil
 }
 
 func (c *KafkaConsumer) Start() {
+	c.isRunnung=true
 	logrus.Info("kafka transport started")
 	c.readMessageLoop()
 }
 
 func (c *KafkaConsumer) readMessageLoop() {
 	for c.isRunnung {
-		msg, err := c.consumer.ReadMessage(time.Second)
+		msg, err := c.consumer.ReadMessage(-1)
 		if err != nil {
 			logrus.Errorf("Kafka consume error: %s", err)
 			continue
 		}
+		// if err == nil {
+		// 	fmt.Printf("Message on %s: %s\n", msg.TopicPartition, string(msg.Value))
+		// } else if !err.(kafka.Error).IsTimeout() {
+		// 	// The client will automatically try to recover from all errors.
+		// 	// Timeout is not considered an error because it is raised by
+		// 	// ReadMessage in absence of messages.
+		// 	fmt.Printf("Consumer error: %v (%v)\n", err, msg)
+		// }
+
 		fmt.Println(msg)
 	}
 }

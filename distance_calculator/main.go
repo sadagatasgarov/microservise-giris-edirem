@@ -1,11 +1,10 @@
 package main
 
 import "log"
-
-const topic = "topic"
+const kafkaTopic = "topic"
 
 func main() {
-	kafkaConsumer, err := NewKafkaConsumer(topic)
+	kafkaConsumer, err := NewKafkaConsumer(kafkaTopic)
 	if err != nil {
 		log.Fatal(err)
 	}
