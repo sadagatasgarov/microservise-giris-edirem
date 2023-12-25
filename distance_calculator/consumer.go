@@ -59,7 +59,13 @@ func (c *KafkaConsumer) readMessageLoop() {
 			logrus.Errorf("serialization error: %s", err)
 			continue
 		}
-		c.calcService.CalculateDistance(data)
-		fmt.Println(data)
+		distance, err:=c.calcService.CalculateDistance(data)
+		if err != nil {
+			logrus.Errorf("calculation error: %s", err)
+			continue
+		}
+
+		fmt.Println(data, "--->", distance)
+		fmt.Printf("distance:-> %2.f \n", distance)
 	}
 }

@@ -1,13 +1,19 @@
 package main
 
 import "log"
+
 const kafkaTopic = "topic"
 
 func main() {
+	var (
+		err error
+		svc CalculatorServicer
+	)
 
-	service:=NewCalculatorService()
-	
-	kafkaConsumer, err := NewKafkaConsumer(kafkaTopic, service)
+	svc = NewCalculatorService()
+
+
+	kafkaConsumer, err := NewKafkaConsumer(kafkaTopic, svc)
 	if err != nil {
 		log.Fatal(err)
 	}
