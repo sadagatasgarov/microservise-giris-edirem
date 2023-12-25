@@ -4,7 +4,10 @@ import "log"
 const kafkaTopic = "topic"
 
 func main() {
-	kafkaConsumer, err := NewKafkaConsumer(kafkaTopic)
+
+	service:=NewCalculatorService()
+	
+	kafkaConsumer, err := NewKafkaConsumer(kafkaTopic, service)
 	if err != nil {
 		log.Fatal(err)
 	}

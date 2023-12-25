@@ -1,18 +1,21 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
+	"github.com/sadagatasgarov/toll-calc/types"
 	"github.com/sirupsen/logrus"
 )
 
 type KafkaConsumer struct {
-	consumer  *kafka.Consumer
-	isRunnung bool
+	consumer    *kafka.Consumer
+	isRunnung   bool
+	calcService CalculatorServicer
 }
 
-func NewKafkaConsumer(topic string) (*KafkaConsumer, error) {
+func NewKafkaConsumer(topic string, svc CalculatorServicer) (*KafkaConsumer, error) {
 	c, err := kafka.NewConsumer(&kafka.ConfigMap{
 		"bootstrap.servers": "localhost",
 		"group.id":          "myGroup",
@@ -24,12 +27,13 @@ func NewKafkaConsumer(topic string) (*KafkaConsumer, error) {
 	c.SubscribeTopics([]string{topic}, nil)
 
 	return &KafkaConsumer{
-		consumer: c,
+		consumer:    c,
+		calcService: svc,
 	}, nil
 }
 
 func (c *KafkaConsumer) Start() {
-	c.isRunnung=true
+	c.isRunnung = true
 	logrus.Info("kafka transport started")
 	c.readMessageLoop()
 }
@@ -50,6 +54,12 @@ func (c *KafkaConsumer) readMessageLoop() {
 		// 	fmt.Printf("Consumer error: %v (%v)\n", err, msg)
 		// }
 
-		fmt.Println(msg)
+		var data types.OBUData
+		if err := json.Unmarshal(msg.Value, &data); err != nil {
+			logrus.Errorf("serialization error: %s", err)
+			continue
+		}
+		c.calcService.CalculateDistance(data)
+		fmt.Println(data)
 	}
 }
