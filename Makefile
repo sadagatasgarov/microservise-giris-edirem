@@ -12,7 +12,7 @@ calculator:
 
 git:
 	@git add .
-	@git commit -m"consumere giris etdirik->metodlari da duzeltdik isleyir"
+	@git commit -m"consumere giris etdirik->Distance isleyirmesafe hesablama"
 	@git push -u origin main
 
 .PHONY:obu
