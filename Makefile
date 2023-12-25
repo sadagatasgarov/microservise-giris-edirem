@@ -12,7 +12,7 @@ calculator:
 
 git:
 	@git add .
-	@git commit -m"47 der basla"
+	@git commit -m"47 der basladoq servisdeki sliceni refactoru"
 	@git push -u origin main
 
 .PHONY:obu
