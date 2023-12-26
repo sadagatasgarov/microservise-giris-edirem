@@ -12,7 +12,7 @@ calculator:
 
 git:
 	@git add .
-	@git commit -m"ders 47 impemende logmidele=ware anlasilmazligim var"
+	@git commit -m"ders 47 impemende logmidele=ware anlasilmazligim var 12.07de bitdi yazmaq"
 	@git push -u origin main
 
 .PHONY:obu
