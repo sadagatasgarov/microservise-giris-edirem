@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"agregate log "
+	@git commit -m"storeda duzelis"
 	@git push -u origin main
 
 
