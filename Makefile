@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"Http transportu deyesen *****"
+	@git commit -m"agregate log "
 	@git push -u origin main
 
 
