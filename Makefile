@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"http ustunden data hazir"
+	@git commit -m"http ustunden data hazir 48 bitti"
 	@git push -u origin main
 
 
