@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"47 ders dekorator patern dedi arasdiracagam. 33.28"
+	@git commit -m"Http transportu deyesen *****"
 	@git push -u origin main
 
 

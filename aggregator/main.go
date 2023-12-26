@@ -16,10 +16,13 @@ func main() {
 	var (
 		svc = NewInvoiceAggregator(store)
 	)
-	// burada dekorator patern dedi arasdiracagam
+	makeHTTPTransport(*listenAddr, svc)
+}
+
+func makeHTTPTransport(listenAddr string, svc Aggregator) {
+	fmt.Println("HTTP transport running on port: ", listenAddr)
 	http.HandleFunc("/aggregate", handleAggregate(svc))
-	http.ListenAndServe(*listenAddr, nil)
-	fmt.Println("aaaaaaaaaaaaaaaaaaaaaaaa")
+	http.ListenAndServe(listenAddr, nil)
 }
 
 func handleAggregate(svc Aggregator) http.HandlerFunc {
@@ -27,7 +30,7 @@ func handleAggregate(svc Aggregator) http.HandlerFunc {
 		var distance types.Distance
 		if err := json.NewDecoder(r.Body).Decode(&distance); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
-			return 
+			return
 		}
 	}
 }
