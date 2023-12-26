@@ -19,4 +19,5 @@ git:
 	@git commit -m"ders47 aggregator elave dirik"
 	@git push -u origin main
 
+
 .PHONY:obu, invoicer
