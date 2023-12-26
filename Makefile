@@ -16,7 +16,7 @@ invoicer:
 
 git:
 	@git add .
-	@git commit -m"ders 47 impemende logmidele=ware anlasilmazligim var 12.07de bitdi yazmaq"
+	@git commit -m"ders47 aggregator elave dirik"
 	@git push -u origin main
 
 .PHONY:obu, invoicer
