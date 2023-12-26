@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"storeda duzelis"
+	@git commit -m"http ustunden data hazir"
 	@git push -u origin main
 
 
