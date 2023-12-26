@@ -10,9 +10,9 @@ calculator:
 	@go build -o ./bin/calculator ./distance_calculator
 	@./bin/calculator
 
-invoicer:
-	@go build -o ./bin/invoicer ./invoicer/main.go
-	@./bin/invoicer
+agg:
+	@go build -o ./bin/agg ./aggregator
+	@./bin/agg
 
 git:
 	@git add .
@@ -20,4 +20,4 @@ git:
 	@git push -u origin main
 
 
-.PHONY:obu, invoicer
+.PHONY:obu
