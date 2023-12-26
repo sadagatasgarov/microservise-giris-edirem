@@ -12,7 +12,7 @@ calculator:
 
 git:
 	@git add .
-	@git commit -m"47 invoice agr der basladoq servisdeki sliceni refactoru"
+	@git commit -m"ders 47 impemende logmidele=ware anlasilmazligim var"
 	@git push -u origin main
 
 .PHONY:obu

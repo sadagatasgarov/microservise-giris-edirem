@@ -16,7 +16,7 @@ func NewLogMiddleware(next CalculatorServicer) CalculatorServicer {
 		next: next,
 	}
 }
-
+// Burada implementde anlasilmazligim var geleckede bunu arassdiracagam
 func (m *LogMiddleware) CalculateDistance(data types.OBUData) (float64, error) {
 	dist, err := m.next.CalculateDistance(data)
 
@@ -28,5 +28,5 @@ func (m *LogMiddleware) CalculateDistance(data types.OBUData) (float64, error) {
 		}).Info("calculate distance")
 	}(time.Now())
 
-	return 0.0, nil
+	return dist, err
 }
