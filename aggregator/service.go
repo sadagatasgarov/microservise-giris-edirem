@@ -13,6 +13,7 @@ type Aggregator interface {
 
 type Storer interface {
 	Insert(types.Distance) error
+	Get(int) (float64, error)
 }
 
 type InvoiceAggregator struct {
