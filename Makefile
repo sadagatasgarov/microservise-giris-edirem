@@ -14,9 +14,13 @@ agg:
 	@go build -o ./bin/agg ./aggregator
 	@./bin/agg
 
+
+proto:
+	protoc --go_out=. --go_opt=paths=source_relative types/ptypes.proto
+
 git:
 	@git add .
-	@git commit -m"invoice get ders 49 bitdi"
+	@git commit -m"Protobuffers ders 50 typesi duzeldik readmi faylin"
 	@git push -u origin main
 
 
