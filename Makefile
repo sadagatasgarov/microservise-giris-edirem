@@ -16,7 +16,7 @@ agg:
 
 git:
 	@git add .
-	@git commit -m"invoice get ders 49 13.39"
+	@git commit -m"invoice get ders 49 bitdi"
 	@git push -u origin main
 
 
