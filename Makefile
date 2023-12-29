@@ -23,7 +23,7 @@ protogrpc:
 
 git:
 	@git add .
-	@git commit -m"Protobuffers grpc duzeldi ders 50"
+	@git commit -m"Protobuffers grpc duzeldi ders 50 19.25"
 	@git push -u origin main
 
 
