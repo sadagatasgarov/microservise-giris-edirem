@@ -31,3 +31,4 @@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 PATH="${PATH}:${HOME}/go/bin"
 
 go get google.golang.org/protobuf 
+go get google.golang.org/grpc

@@ -18,9 +18,12 @@ agg:
 proto:
 	protoc --go_out=. --go_opt=paths=source_relative types/ptypes.proto
 
+protogrpc:
+	protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative types/ptypes.proto
+
 git:
 	@git add .
-	@git commit -m"Protobuffers ders 50 typesi duzeldik readmi faylin"
+	@git commit -m"Protobuffers grpc duzeldi ders 50"
 	@git push -u origin main
 
 

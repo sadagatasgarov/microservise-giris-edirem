@@ -2,7 +2,16 @@ syntax = "proto3";
 
 option go_package = "github.com/sadagatasgarov/toll-calc/types";
 
-message Test {
-    int32 someint = 1;
-    int32 someother =2;
+service DistanceAggregator{
+    rpc AggregateDistance(AggregateDistanceRequest) returns (None);
+}
+
+
+message None {}
+
+message AggregateDistanceRequest {
+    int32 ObuID = 1;
+    double Value = 2;
+    int64 Unix = 3;
+    
 };
