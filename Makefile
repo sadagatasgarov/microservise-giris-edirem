@@ -23,7 +23,7 @@ protogrpc:
 
 git:
 	@git add .
-	@git commit -m"GRPC server ise dusdu ders 50 bitdi"
+	@git commit -m"GRPC client ise dusdu ders 51 bitdi"
 	@git push -u origin main
 
 
